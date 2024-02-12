@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Module template for all authentication system"""
 from flask import request
-from typing import List
+from typing import List, TypeVar
 
 
 class Auth:
@@ -30,7 +30,6 @@ class Auth:
 
         return request.authorization.to_header()
 
-    def current_user(self, request=None):
-        """-> TypeVar('User'):
-        """
+    def current_user(self, request=None) -> TypeVar('User'):
+        """"""
         return None
