@@ -62,7 +62,7 @@ class BasicAuth(Auth):
             return None
 
         users = User.search({"email": user_email})
-        if users is None:
+        if len(users) == 0:
             return None
 
         for user in users:
@@ -70,3 +70,10 @@ class BasicAuth(Auth):
                 return user
 
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        authorization = self.authorization_header(request)
+        b64 = self.extract_base64_authorization_header(authorization)
+        b64decoded = self.decode_base64_authorization_header(b64)
+        user_email, user_pwd = self.extract_user_credentials(b64decoded)
+        return self.user_object_from_credentials(user_email, user_pwd)
