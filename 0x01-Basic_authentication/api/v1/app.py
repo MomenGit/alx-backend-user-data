@@ -36,7 +36,7 @@ def forbidden_handler(error):
 
 @app.before_request
 def before_req():
-    """"""
+    """Check for authorization before request"""
     if auth is None:
         return
     req_auth = auth.require_auth(
@@ -58,5 +58,8 @@ if __name__ == "__main__":
     if auth_type == "auth":
         from api.v1.auth.auth import Auth
         auth = Auth()
+    if auth_type == "basic_auth":
+        from api.v1.auth.basic_auth import BasicAuth
+        auth = BasicAuth()
 
     app.run(host=host, port=port)
