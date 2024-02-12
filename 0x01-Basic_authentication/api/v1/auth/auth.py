@@ -9,6 +9,7 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
+        Define which routes don't need authentication
         Returns True if the path is not in the list of strings excluded_paths
         """
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
@@ -21,8 +22,13 @@ class Auth:
         return False
 
     def authorization_header(self, request=None) -> str:
-        """"""
-        return None
+        """Check Authorization header"""
+        if request is None:
+            return None
+        if request.authorization is None:
+            return None
+
+        return request.authorization.to_header()
 
     def current_user(self, request=None):
         """-> TypeVar('User'):
