@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Module template for all authentication system"""
-from flask import request
 from typing import List, TypeVar
 
 
@@ -25,11 +24,12 @@ class Auth:
         """Check Authorization header"""
         if request is None:
             return None
-        if request.authorization is None:
+        if "Authorization" not in request.headers:
             return None
 
-        return request.authorization.to_header()
+        return request.header['Authorization']
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """"""
+        """Overloads Auth and retrieves the User instance for a request
+        """
         return None
