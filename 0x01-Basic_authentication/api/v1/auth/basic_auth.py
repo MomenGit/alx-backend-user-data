@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Basic Authentication System Module"""
-from uu import encode
 from api.v1.auth.auth import Auth
 import base64
 from typing import TypeVar
@@ -73,11 +72,11 @@ class BasicAuth(Auth):
 
         return None
 
-    def current_user(self, request=None) -> TypeVar('User'):
+    def current_user(self, request=None) -> TypeVar['User']:
         """Overloads Auth and retrieves the User instance for a request
         """
-        authorization = self.authorization_header(request)
-        b64 = self.extract_base64_authorization_header(authorization)
-        b64decoded = self.decode_base64_authorization_header(b64)
-        user_email, user_pwd = self.extract_user_credentials(b64decoded)
+        auth_header = self.authorization_header(request)
+        b64_header = self.extract_base64_authorization_header(auth_header)
+        b64_decoded = self.decode_base64_authorization_header(b64_header)
+        user_email, user_pwd = self.extract_user_credentials(b64_decoded)
         return self.user_object_from_credentials(user_email, user_pwd)
