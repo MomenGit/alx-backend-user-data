@@ -16,6 +16,13 @@ class Auth:
 
         if not path.endswith('/'):
             path = path+'/'
+
+        for exclusion in excluded_paths:
+            if exclusion.endswith('*'):
+                asterisk_i = exclusion.rfind('*')
+                if path[:asterisk_i] == exclusion[:-1]:
+                    return False
+
         if path not in excluded_paths:
             return True
         return False
