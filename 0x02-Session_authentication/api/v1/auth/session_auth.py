@@ -8,8 +8,9 @@ from uuid import uuid4
 class SessionAuth(Auth):
     """Class that manages Session Authentication"""
 
+    user_id_by_session_id = {}
+
     def __init__(self) -> None:
-        self.user_id_by_session_id = {}
         super().__init__()
 
     def create_session(self, user_id: str = None) -> str:
