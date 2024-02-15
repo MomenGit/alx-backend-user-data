@@ -2,7 +2,7 @@
 """Module of session authentication views"""
 
 from os import getenv
-from flask import jsonify, request
+from flask import abort, jsonify, request
 from api.v1.views import app_views
 from models.user import User
 
@@ -34,3 +34,12 @@ def login():
             return res
 
     return jsonify({"error": "wrong password"}), 401
+
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """Handles logging in for the Session authentication"""
+    from api.v1.app import auth
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({}), 200
