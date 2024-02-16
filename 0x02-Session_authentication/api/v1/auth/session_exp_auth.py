@@ -16,7 +16,7 @@ class SessionExpAuth(SessionAuth):
             self.session_duration = 0
 
     def create_session(self, user_id=None):
-        """"""
+        """Create a Session ID for a User"""
         session_id = super().create_session(user_id)
         if session_id is None:
             return None
@@ -25,7 +25,7 @@ class SessionExpAuth(SessionAuth):
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
-        """"""
+        """Return a User based on Session ID"""
         if session_id is None:
             return None
 
