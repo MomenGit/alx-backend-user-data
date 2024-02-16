@@ -21,7 +21,7 @@ def login():
 
     try:
         users = User.search({"email": email})
-        if len(users) == 0 or not users:
+        if len(users) == 0:
             return jsonify({"error": "no user found for this email"}), 404
     except Exception as err:
         return jsonify({"error": "no user found for this email"}), 404
@@ -32,7 +32,7 @@ def login():
             session_id = auth.create_session(user.id)
             res = jsonify(user.to_json())
             res.set_cookie(getenv("SESSION_NAME"), session_id)
-            return res, 200
+            return res
 
     return jsonify({"error": "wrong password"}), 401
 
