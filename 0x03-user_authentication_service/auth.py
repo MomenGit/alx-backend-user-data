@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Authentication Module"""
+from uuid import uuid4
 import bcrypt
 from db import DB
 from user import User
@@ -47,3 +48,8 @@ def _hash_password(password: str) -> bytes:
     encoded_pwd = password.encode('utf-8')
     hashed_pwd = bcrypt.hashpw(encoded_pwd, salt)
     return hashed_pwd
+
+
+def _generate_uuid() -> str:
+    """Return a string representation of a new UUID"""
+    return uuid4().__str__()
