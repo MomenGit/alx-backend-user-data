@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Authentication Module"""
+from typing import Optional
 from uuid import uuid4
 import bcrypt
 from db import DB
@@ -51,6 +52,21 @@ class Auth:
                 return session_id
         except Exception as err:
             pass
+
+        return None
+
+    def get_user_from_session_id(self, session_id: str) -> Optional[User]:
+        """Returns the corresponding User for the session_id or None
+        Args:
+            session_id (str): user's session id
+        """
+        if session_id is not None:
+            try:
+                user = self._db.find_user_by(session_id=session_id)
+                if user is not None:
+                    return user
+            except Exception as err:
+                pass
 
         return None
 
