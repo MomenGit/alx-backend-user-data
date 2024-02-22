@@ -19,7 +19,9 @@ def index():
 
 @app.route("/users", methods=['POST'], strict_slashes=False)
 def users():
-    """User Registration route"""
+    """ POST
+    User Registration route
+    """
     email, password = request.form.get("email"), request.form.get("password")
     try:
         new_user = AUTH.register_user(email, password)
@@ -30,7 +32,9 @@ def users():
 
 @app.route("/sessions", methods=['POST'], strict_slashes=False)
 def login():
-    """"""
+    """ POST
+    User Login Route
+    """
     email, password = request.form.get("email"), request.form.get("password")
     if not AUTH.valid_login(email, password):
         abort(401)
