@@ -70,6 +70,16 @@ class Auth:
 
         return None
 
+    def destroy_session(self, user_id: int) -> None:
+        """Removes User's session
+        Args:
+            user_id (int): the id for the user associated with a session
+        """
+        try:
+            self._db.update_user(user_id, session_id=None)
+        except Exception as err:
+            pass
+
 
 def _hash_password(password: str) -> bytes:
     """Hashes a password"""
