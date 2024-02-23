@@ -2,7 +2,7 @@
 """
 Route Module for the API
 """
-from flask import Flask, Response, abort, jsonify, make_response, redirect, request
+from flask import Flask,  abort, jsonify,  redirect, request
 from flask_cors import CORS
 from auth import Auth
 
