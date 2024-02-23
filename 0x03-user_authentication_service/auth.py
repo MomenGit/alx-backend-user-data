@@ -80,6 +80,17 @@ class Auth:
         except Exception as err:
             pass
 
+    def get_reset_password_token(self, email: str) -> str:
+        """Sets a user's reset password token"""
+        try:
+            user = self._db.find_user_by(email=email)
+        except Exception as err:
+            raise ValueError
+
+        token = _generate_uuid()
+        self._db.update_user(user.id, reset_token=token)
+        return token
+
 
 def _hash_password(password: str) -> bytes:
     """Hashes a password"""
